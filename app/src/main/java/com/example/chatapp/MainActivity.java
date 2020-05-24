@@ -3,6 +3,7 @@ package com.example.chatapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
+    private SectionsPagerAdapter adapter;
+
     private FirebaseAuth mAuth;
 
     @Override
@@ -30,6 +33,12 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.main_page_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Chat App");
+
+        adapter = new SectionsPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+
+        binding.mainViewPager.setAdapter(adapter);
+
+        binding.mainTabs.setupWithViewPager(binding.mainViewPager);
     }
 
     @Override
@@ -65,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.logout_main) {
             FirebaseAuth.getInstance().signOut();
             redirectToStart();
+        }
+
+        if (item.getItemId() == R.id.settings_main) {
+            Intent settingIntent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(settingIntent);
+            finish();
         }
 
         return true;

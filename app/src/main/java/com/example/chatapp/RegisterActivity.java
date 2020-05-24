@@ -18,6 +18,10 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -27,6 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
     private CustomDialog dialog;
 
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
 
         dialog = new CustomDialog(RegisterActivity.this);
 
@@ -52,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void createAccount() {
-        String name = binding.userName.getEditText().getText().toString().trim();
+        final String name = binding.userName.getEditText().getText().toString().trim();
         String email = binding.userEmail.getEditText().getText().toString().trim();
         String password = binding.userPassword.getEditText().getText().toString().trim();
 
@@ -64,10 +70,25 @@ public class RegisterActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 Log.d(TAG, "createUserWithEmail:success");
-                                dialog.dismissDialog();
-                                Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
-                                startActivity(mainIntent);
-                                finish();
+
+                                HashMap<String, String> user = new HashMap<>();
+                                user.put("name", name);
+                                user.put("status", "Hey! I'm on ChatApp ^_^");
+                                user.put("image", "default");
+                                user.put("thumbnail", "default");
+
+                                mDatabase.child(mAuth.getCurrentUser().getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            dialog.dismissDialog();
+                                            Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
+                                            mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            startActivity(mainIntent);
+                                            finish();
+                                        }
+                                    }
+                                });
                             } else {
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
                                 dialog.dismissDialog();

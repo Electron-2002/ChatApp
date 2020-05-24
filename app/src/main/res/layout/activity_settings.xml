@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".SettingsActivity">
+    
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_pic"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/profile_icon"/>
+
+    <TextView
+        android:id="@+id/profile_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_pic"
+        android:textColor="@android:color/white"
+        android:text="@string/display_name"
+        android:layout_marginTop="30dp"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:textSize="24sp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/profile_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profile_name"
+        android:textColor="@android:color/white"
+        android:text="@string/hey_i_m_on_chatapp"
+        android:textAlignment="center"
+        android:layout_marginTop="30dp"
+        android:textSize="16sp"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"/>
+
+    <Button
+        android:id="@+id/change_profile_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="@string/change_profile_pic"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/change_profile_status"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/colorPrimary"/>
+
+    <Button
+        android:id="@+id/change_profile_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="@android:color/white"
+        android:text="@string/change_status"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"/>
+
+</RelativeLayout>

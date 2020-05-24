@@ -42,6 +42,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/colorAccent"
         android:layout_below="@id/user_email">
 
         <com.google.android.material.textfield.TextInputEditText

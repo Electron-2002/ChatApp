@@ -66,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.d(TAG, "createUserWithEmail:success");
                                 dialog.dismissDialog();
                                 Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                                mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(mainIntent);
                                 finish();
                             } else {

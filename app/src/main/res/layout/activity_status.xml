@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StatusActivity">
+
+    <include
+        layout="@layout/app_bar_layout"
+        android:id="@+id/status_page_toolbar"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/user_status"
+        android:layout_below="@id/status_page_toolbar"
+        android:layout_marginTop="30dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:hint="@string/your_status" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/apply_changes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/apply_changes"
+        android:layout_below="@id/user_status"
+        android:layout_alignParentEnd="true"
+        android:backgroundTint="@color/colorAccent"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textColor="@android:color/white"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"/>
+
+
+</RelativeLayout>

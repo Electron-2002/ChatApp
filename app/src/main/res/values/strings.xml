@@ -12,4 +12,12 @@
     <string name="login_to_your_account">Login to your Account</string>
     <string name="login">Login</string>
     <string name="loading">Loading...</string>
+    <string name="account_settings">Account Settings</string>
+    <string name="all_users">All Users</string>
+    <string name="display_name">Display Name</string>
+    <string name="hey_i_m_on_chatapp">Hey! I\'m on ChatApp ^_^</string>
+    <string name="change_profile_pic">Change Profile Pic</string>
+    <string name="change_status">Change Status</string>
+    <string name="your_status">Your Status</string>
+    <string name="apply_changes">Apply Changes</string>
 </resources>
