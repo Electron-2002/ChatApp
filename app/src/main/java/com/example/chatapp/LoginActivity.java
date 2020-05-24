@@ -6,12 +6,13 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.FileObserver;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.chatapp.databinding.ActivityRegisterBinding;
+import com.example.chatapp.databinding.ActivityLoginBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -19,10 +20,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class RegisterActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
-    private ActivityRegisterBinding binding;
-    private static final String TAG = "RegisterActivity";
+    private ActivityLoginBinding binding;
+    private static final String TAG = "LoginActivity";
 
     private CustomDialog dialog;
 
@@ -31,41 +32,40 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityRegisterBinding.inflate(getLayoutInflater());
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         mAuth = FirebaseAuth.getInstance();
 
-        dialog = new CustomDialog(RegisterActivity.this);
+        dialog = new CustomDialog(LoginActivity.this);
 
-        Toolbar toolbar = findViewById(R.id.register_page_toolbar);
+        Toolbar toolbar = findViewById(R.id.login_page_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Create Account");
+        getSupportActionBar().setTitle("Login to your Account");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        binding.createAccount.setOnClickListener(new View.OnClickListener() {
+        binding.login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createAccount();
+                loginUser();
             }
         });
     }
 
-    private void createAccount() {
-        String name = binding.userName.getEditText().getText().toString().trim();
+    private void loginUser() {
         String email = binding.userEmail.getEditText().getText().toString().trim();
         String password = binding.userPassword.getEditText().getText().toString().trim();
 
-        if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
+        if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
             dialog.startDialog();
-            mAuth.createUserWithEmailAndPassword(email, password)
+            mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 Log.d(TAG, "createUserWithEmail:success");
                                 dialog.dismissDialog();
-                                Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
+                                Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(mainIntent);
                                 finish();
                             } else {
@@ -75,9 +75,6 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         }
                     });
-        }
-        else {
-            Snackbar.make(binding.layout, "Please enter all the details!", Snackbar.LENGTH_SHORT).show();
         }
     }
 }
