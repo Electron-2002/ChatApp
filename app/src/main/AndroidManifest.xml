@@ -13,18 +13,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.ProfileActivity"></activity>
         <activity
-            android:name=".StatusActivity"
-            android:parentActivityName=".SettingsActivity"/>
-        <activity android:name=".SettingsActivity" />
+            android:name=".activities.UsersActivity"
+            android:parentActivityName=".activities.MainActivity" />
         <activity
-            android:name=".LoginActivity"
-            android:parentActivityName=".StartActivity" />
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
         <activity
-            android:name=".RegisterActivity"
-            android:parentActivityName=".StartActivity" />
-        <activity android:name=".StartActivity" />
-        <activity android:name=".MainActivity">
+            android:name=".activities.StatusActivity"
+            android:parentActivityName=".activities.SettingsActivity" />
+        <activity android:name=".activities.SettingsActivity" />
+        <activity
+            android:name=".activities.LoginActivity"
+            android:parentActivityName=".activities.StartActivity" />
+        <activity
+            android:name=".activities.RegisterActivity"
+            android:parentActivityName=".activities.StartActivity" />
+        <activity android:name=".activities.StartActivity" />
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

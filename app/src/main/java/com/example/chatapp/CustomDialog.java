@@ -3,17 +3,16 @@ package com.example.chatapp;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
-import android.widget.TextView;
 
 public class CustomDialog {
     private Activity activity;
     private AlertDialog dialog;
 
-    CustomDialog (Activity activity) {
+    public CustomDialog(Activity activity) {
         this.activity = activity;
     }
 
-    void startDialog() {
+    public void startDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
         LayoutInflater inflater = activity.getLayoutInflater();
@@ -24,7 +23,7 @@ public class CustomDialog {
         dialog.show();
     }
 
-    void dismissDialog() {
+    public void dismissDialog() {
         dialog.dismiss();
     }
 }

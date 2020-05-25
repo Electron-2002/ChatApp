@@ -1,11 +1,13 @@
-package com.example.chatapp;
-
-import android.widget.Switch;
+package com.example.chatapp.adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
+import com.example.chatapp.fragments.ChatsFragment;
+import com.example.chatapp.fragments.FriendsFragment;
+import com.example.chatapp.fragments.RequestsFragment;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 

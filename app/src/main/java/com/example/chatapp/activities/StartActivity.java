@@ -1,10 +1,10 @@
-package com.example.chatapp;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.chatapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.chatapp.databinding.ActivityStartBinding;
 
