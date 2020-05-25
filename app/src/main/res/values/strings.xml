@@ -20,4 +20,7 @@
     <string name="change_status">Change Status</string>
     <string name="your_status">Your Status</string>
     <string name="apply_changes">Apply Changes</string>
+    <string name="send_friend_request">Send Friend Request</string>
+    <string name="total_friends">Total Friends</string>
+    <string name="decline_friend_request">Decline Friend Request</string>
 </resources>

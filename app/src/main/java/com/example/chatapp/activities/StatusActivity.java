@@ -56,7 +56,6 @@ public class StatusActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
 
@@ -80,6 +79,7 @@ public class StatusActivity extends AppCompatActivity {
                         dialog.dismissDialog();
 
                         Intent settingIntent = new Intent(StatusActivity.this, SettingsActivity.class);
+                        settingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(settingIntent);
                         finish();
                     }
