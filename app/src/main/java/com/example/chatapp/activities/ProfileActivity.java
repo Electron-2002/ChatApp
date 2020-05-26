@@ -23,6 +23,7 @@ import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -33,7 +34,7 @@ public class ProfileActivity extends AppCompatActivity {
     private static final int REQUEST_ACCEPTED = 3;
     private ActivityProfileBinding binding;
     private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase, mDatabaseFriendRequests, mDatabaseFriends;
+    private DatabaseReference mDatabase, mDatabaseFriendRequests, mDatabaseFriends, mDatabaseNotifications;
     private CustomDialog dialog;
     private int friendship;
 
@@ -49,6 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(showUserID);
         mDatabaseFriendRequests = FirebaseDatabase.getInstance().getReference().child("Friends Requests");
         mDatabaseFriends = FirebaseDatabase.getInstance().getReference().child("Friends");
+        mDatabaseNotifications = FirebaseDatabase.getInstance().getReference().child("Notifications");
 
 
         dialog = new CustomDialog(ProfileActivity.this);
@@ -133,10 +135,20 @@ public class ProfileActivity extends AppCompatActivity {
                                                     @SuppressLint("SetTextI18n")
                                                     @Override
                                                     public void onSuccess(Void aVoid) {
-                                                        friendship = REQUEST_SENT;
-                                                        binding.sendFriendRequest.setEnabled(true);
-                                                        binding.sendFriendRequest.setText("Cancel Friend Request");
-                                                        Snackbar.make(binding.layout, "Friend Request Sent", Snackbar.LENGTH_SHORT).show();
+
+                                                        HashMap<String, String> notificationMap = new HashMap<>();
+                                                        notificationMap.put("from", mAuth.getCurrentUser().getUid());
+                                                        notificationMap.put("type", "request");
+                                                        mDatabaseNotifications.child(showUserID).push().setValue(notificationMap)
+                                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                    @Override
+                                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                                        friendship = REQUEST_SENT;
+                                                                        binding.sendFriendRequest.setEnabled(true);
+                                                                        binding.sendFriendRequest.setText("Cancel Friend Request");
+                                                                        Snackbar.make(binding.layout, "Friend Request Sent", Snackbar.LENGTH_SHORT).show();
+                                                                    }
+                                                                });
                                                     }
                                                 });
                                     }

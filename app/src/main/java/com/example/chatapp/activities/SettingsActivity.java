@@ -26,6 +26,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 
@@ -58,6 +60,8 @@ public class SettingsActivity extends AppCompatActivity {
         mStorageImages = FirebaseStorage.getInstance().getReference().child("Profile Pics");
         mStorageThumbnails = FirebaseStorage.getInstance().getReference().child("Thumbnail Images");
 
+        mDatabase.keepSynced(true);
+
         dialog = new CustomDialog(SettingsActivity.this);
 
         mDatabase.addValueEventListener(new ValueEventListener() {
@@ -65,13 +69,23 @@ public class SettingsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String name = dataSnapshot.child("name").getValue().toString();
                 String status = dataSnapshot.child("status").getValue().toString();
-                String image = dataSnapshot.child("image").getValue().toString();
+                final String image = dataSnapshot.child("image").getValue().toString();
                 String thumbnail = dataSnapshot.child("thumbnail").getValue().toString();
 
                 binding.profileName.setText(name);
                 binding.profileStatus.setText(status);
                 if (!image.equals("default")) {
-                    Picasso.get().load(image).into(binding.profilePic);
+                    Picasso.get().load(image).networkPolicy(NetworkPolicy.OFFLINE).into(binding.profilePic, new Callback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+                            Picasso.get().load(image).into(binding.profilePic);
+                        }
+                    });
                 }
             }
 
