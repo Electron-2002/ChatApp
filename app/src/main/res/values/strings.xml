@@ -15,7 +15,7 @@
     <string name="account_settings">Account Settings</string>
     <string name="all_users">All Users</string>
     <string name="display_name">Display Name</string>
-    <string name="hey_i_m_on_chatapp">Hey! I\'m on ChatApp ^_^</string>
+    <string name="hey_i_m_on_chatapp">Hey! I\'m on ChatApp :)</string>
     <string name="change_profile_pic">Change Profile Pic</string>
     <string name="change_status">Change Status</string>
     <string name="your_status">Your Status</string>
@@ -23,4 +23,6 @@
     <string name="send_friend_request">Send Friend Request</string>
     <string name="total_friends">Total Friends</string>
     <string name="decline_friend_request">Decline Friend Request</string>
+    <string name="last_seen">Last Seen</string>
+    <string name="enter_message">Enter Message</string>
 </resources>

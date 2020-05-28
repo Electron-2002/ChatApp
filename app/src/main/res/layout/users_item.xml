@@ -36,6 +36,16 @@
             android:textColor="@android:color/black"
             android:textSize="16sp" />
 
+        <ImageView
+            android:id="@+id/user_online"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_toStartOf="@id/user_name"
+            android:src="@drawable/online_image"
+            android:visibility="gone" />
+
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

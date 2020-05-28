@@ -15,6 +15,9 @@ import com.example.chatapp.adapters.SectionsPagerAdapter;
 import com.example.chatapp.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private SectionsPagerAdapter adapter;
 
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         mAuth = FirebaseAuth.getInstance();
+        FirebaseUser mCurrentUser = mAuth.getCurrentUser();
+
+        if (mCurrentUser == null) {
+            redirectToStart();
+        } else {
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
+        }
 
         Toolbar toolbar = findViewById(R.id.main_page_toolbar);
         setSupportActionBar(toolbar);
@@ -51,7 +62,19 @@ public class MainActivity extends AppCompatActivity {
 
         if (mCurrentUser == null) {
             redirectToStart();
+        } else {
+            mDatabase.child("online").setValue(true);
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if (mAuth.getCurrentUser() != null) {
+            mDatabase.child("online").setValue(ServerValue.TIMESTAMP);
+        }
+
     }
 
     private void redirectToStart() {
@@ -74,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         super.onOptionsItemSelected(item);
 
         if (item.getItemId() == R.id.logout_main) {
+            mDatabase.child("online").setValue(ServerValue.TIMESTAMP);
             FirebaseAuth.getInstance().signOut();
             redirectToStart();
         }

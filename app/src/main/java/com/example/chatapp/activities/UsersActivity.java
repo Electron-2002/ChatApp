@@ -18,6 +18,7 @@ import com.example.chatapp.models.User;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -50,11 +51,12 @@ public class UsersActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        Query usersQuery = mDatabase.orderByChild("name");
         FirebaseRecyclerAdapter adapter = new FirebaseRecyclerAdapter<User, UsersViewHolder>(
                 User.class,
                 R.layout.users_item,
                 UsersViewHolder.class,
-                mDatabase
+                usersQuery
         ) {
             @Override
             protected void populateViewHolder(UsersViewHolder usersViewHolder, User user, int i) {

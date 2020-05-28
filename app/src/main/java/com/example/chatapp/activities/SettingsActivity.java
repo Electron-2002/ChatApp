@@ -177,12 +177,21 @@ public class SettingsActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         dialog.dismissDialog();
-                        Snackbar.make(binding.layout, "Some error occured while processing your request.", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(binding.layout, "Some error occurred while processing your request.", Snackbar.LENGTH_SHORT).show();
                     }
                 });
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent mainIntent = new Intent(SettingsActivity.this, MainActivity.class);
+        mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
     }
 }
